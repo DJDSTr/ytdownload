@@ -54,6 +54,7 @@ def index():
 
 @app.route('/download', methods=['POST'])
 def download():
+    print("Download route accessed")  # Debugging line
     url = request.form['url']
     folder = 'tmp'  # Temporary folder to store videos
     video_file_path = download_youtube_video(url, folder)
