@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, send_file
+from flask import Flask, render_template_string, request, send_file
 import yt_dlp
 import os
 
@@ -31,7 +31,26 @@ def download_youtube_video(url, folder):
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    # Inline HTML template
+    html_template = '''
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>YouTube Video Downloader</title>
+    </head>
+    <body>
+        <h1>YouTube Video Downloader</h1>
+        <form action="/download" method="POST">
+            <label for="url">Enter YouTube URL:</label>
+            <input type="text" id="url" name="url" required>
+            <button type="submit">Download</button>
+        </form>
+    </body>
+    </html>
+    '''
+    return render_template_string(html_template)
 
 @app.route('/download', methods=['POST'])
 def download():
